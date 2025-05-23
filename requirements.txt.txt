@@ -1,0 +1,6 @@
+numpy
+scikit-fuzzy
+matplotlib
+pillow
+requests
+
