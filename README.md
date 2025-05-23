@@ -52,6 +52,17 @@ Bu proje, sporcu performansını optimize etmek için bulanık mantık tabanlı 
 - `.gitignore` — Git yoksayılan dosyalar  
 
 ---
+## 🖼️ Görseller
+
+Uygulamanın ekran görüntüleri:
+
+<p align="center">
+  <img src="KickBoksAnaliz/image1.png" width="500" alt="Ana Arayüz">
+</p>
+
+<p align="center">
+  <img src="KickBoksAnaliz/image2.png" width="500" alt="Grafik Sonuçları">
+</p>
 
 ## 🔧 Kurulum & Çalıştırma
 
@@ -60,3 +71,10 @@ git clone https://github.com/kullanici_adi/kickboxing-fuzzy-control.git
 cd kickboxing-fuzzy-control
 pip install numpy scikit-fuzzy matplotlib pillow requests
 python main.py
+
+
+
+
+
+
+
