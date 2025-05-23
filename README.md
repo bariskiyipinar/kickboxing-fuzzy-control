@@ -57,11 +57,11 @@ Bu proje, sporcu performansını optimize etmek için bulanık mantık tabanlı 
 Uygulamanın ekran görüntüleri:
 
 <p align="center">
-  <img src="KickBoksAnaliz/image1.png" width="500" alt="Ana Arayüz">
+  <img src="image1.png" width="500" alt="Ana Arayüz">
 </p>
 
 <p align="center">
-  <img src="KickBoksAnaliz/image2.png" width="500" alt="Grafik Sonuçları">
+  <img src="image2.png" width="500" alt="Grafik Sonuçları">
 </p>
 
 ## 🔧 Kurulum & Çalıştırma
