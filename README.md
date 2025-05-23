@@ -1,53 +1,62 @@
-# kickboxing-fuzzy-control
+# 🥊 Kickboxing Fuzzy Control System
 
+Kickboxing Fuzzy Control System, kickboks antrenmanlarında kullanıcının kalp atış hızı, kas yorgunluğu, önceki set zorluğu, uyku kalitesi ve su tüketimi gibi parametrelerine dayanarak antrenman zorluğu ve dinlenme süresini bulanık mantık (fuzzy logic) yöntemiyle hesaplayan bir Python uygulamasıdır.
 
-🥊 Kickboxing Fuzzy Control System
-Kickboxing Fuzzy Control System, antrenman zorluğunu ve dinlenme süresini; kalp atış hızı, kas yorgunluğu, önceki set zorluğu, uyku kalitesi ve su tüketimi gibi parametrelere dayanarak bulanık mantık (fuzzy logic) ile değerlendiren interaktif bir Python uygulamasıdır.
+---
 
-📋 Proje Özeti
-Bu proje, sporcunun antrenman verilerini dikkate alarak antrenman şiddeti ve dinlenme ihtiyacını bulanık mantık kurallarıyla hesaplayan bir karar destek sistemidir.
-Kullanıcı dostu bir arayüzü (Tkinter) sayesinde giriş değerleri kolayca girilip, sonuçlar grafiklerle görselleştirilir. Böylece, kickboks antrenmanları için kişiye özel öneriler sunulur.
+## 📋 Proje Özeti
 
-🚀 Özellikler
-Bulanık Mantık Sistemi: Kalp atış hızı, kas yorgunluğu, önceki set zorluğu, uyku kalitesi ve su tüketimi gibi parametreleri dikkate alır.
+Bu proje, sporcu performansını optimize etmek için bulanık mantık tabanlı bir karar destek sistemi sunar. Kullanıcının girdiği veriler değerlendirilerek, antrenman şiddeti ve dinlenme süresi önerileri kişiye özel şekilde oluşturulur. Tkinter tabanlı arayüzü sayesinde veriler kolayca girilip, sonuçlar grafiklerle görselleştirilir.
 
-Dinamik Karar Verme: Girilen değerlere göre antrenman zorluğu ve dinlenme süresi önerisi oluşturur.
+---
 
-Grafik Görselleştirme: Sonuçlar, matplotplib grafiklerle bulanık kümeler üzerinde gösterilir.
+## 🚀 Özellikler
 
-Kullanıcı Dostu Arayüz: Tkinter tabanlı sade ve etkileyici arayüz.
+- Bulanık mantıkla antrenman zorluğu ve dinlenme süresi hesaplama  
+- Kalp atış hızı, kas yorgunluğu, önceki set zorluğu, uyku kalitesi ve su tüketimini dikkate alma  
+- Sonuçların Matplotlib ile grafik olarak gösterilmesi  
+- Kolay kullanılan Tkinter arayüzü  
+- Dinamik arka plan resmi  
 
-İnternet Üzerinden Arka Plan Resmi: Uygulama arka planı dinamik olarak çevrimiçi bir görselle desteklenir.
+---
 
-🎯 Kullanım
-Uygulamayı çalıştırın.
+## 🎯 Kullanım
 
-Aşağıdaki parametreleri girin:
+1. Uygulamayı çalıştırın.  
+2. Aşağıdaki parametreleri girin:  
+    - Kalp Atış Hızı (BPM) [40 - 180]  
+    - Kas Yorgunluğu [0 - 10]  
+    - Önceki Set Zorluğu [0 - 10]  
+    - Uyku Kalitesi [0 - 10]  
+    - Su Tüketimi [0 - 4 litre]  
+3. "Hesapla" butonuna tıklayın.  
+4. Antrenman zorluğu ve dinlenme süresi önerisi ile grafik sonuçları görüntüleyin.
 
-Kalp Atış Hızı (BPM): 40 ile 180 arası
+---
 
-Kas Yorgunluğu: 0 ile 10 arası
+## ⚙️ Teknolojiler
 
-Önceki Set Zorluğu: 0 ile 10 arası
+- Python 3  
+- Tkinter (Grafik arayüz)  
+- NumPy (Sayısal hesaplama)  
+- scikit-fuzzy (Bulanık mantık)  
+- Matplotlib (Grafikler)  
+- PIL & Requests (Arka plan resmi)  
 
-Uyku Kalitesi: 0 ile 10 arası
+---
 
-Su Tüketimi: 0 ile 4 litre arası
+## 📂 Dosya Yapısı
 
-"Hesapla" butonuna basarak antrenman zorluğu ve dinlenme süresi önerisini görün.
+- `main.py` — Uygulamanın ana dosyası  
+- `README.md` — Proje açıklaması  
+- `.gitignore` — Git yoksayılan dosyalar  
 
-Sonuçların bulanık kümeler üzerindeki grafiksel gösterimini inceleyin.
+---
 
-⚙️ Teknolojiler
-Python 3.x
+## 🔧 Kurulum & Çalıştırma
 
-Tkinter (GUI)
-
-NumPy (Sayısal hesaplamalar)
-
-scikit-fuzzy (Bulanık mantık)
-
-Matplotlib (Grafik çizimi)
-
-PIL & Requests (Arka plan resmi için)
-
+```bash
+git clone https://github.com/kullanici_adi/kickboxing-fuzzy-control.git
+cd kickboxing-fuzzy-control
+pip install numpy scikit-fuzzy matplotlib pillow requests
+python main.py
