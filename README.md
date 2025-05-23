@@ -70,7 +70,7 @@ Uygulamanın ekran görüntüleri:
 git clone https://github.com/kullanici_adi/kickboxing-fuzzy-control.git
 cd kickboxing-fuzzy-control
 pip install numpy scikit-fuzzy matplotlib pillow requests
-python main.py
+python Main.py
 
 
 
