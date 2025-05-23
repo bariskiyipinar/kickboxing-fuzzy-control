@@ -61,7 +61,7 @@ Uygulamanın ekran görüntüleri:
 </p>
 
 <p align="center">
-  <img src=image2.png" width="500" alt="Grafik Sonuçları">
+  <img src="image2.png" width="500" alt="Grafik Sonuçları">
 </p>
 
 ## 🔧 Kurulum & Çalıştırma
