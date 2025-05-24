@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# In[1]:
+
+
 import tkinter as tk
 from tkinter import messagebox
 import numpy as np
@@ -71,14 +74,14 @@ class KickboxingApp(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("🥊 Kickboks Antrenman Kontrolcüsü 🥊")
-        self.geometry("700x1100")
+        self.geometry("650x900")
         self.configure(bg="#222831")
 
         url = "https://images.pexels.com/photos/10689269/pexels-photo-10689269.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         try:
             response = requests.get(url)
             img_data = response.content
-            self.bg_image = Image.open(BytesIO(img_data)).resize((700, 1100))
+            self.bg_image = Image.open(BytesIO(img_data)).resize((650, 900))
             self.bg_photo = ImageTk.PhotoImage(self.bg_image)
             self.bg_label = tk.Label(self, image=self.bg_photo)
             self.bg_label.place(x=0, y=0, relwidth=1, relheight=1)
@@ -114,91 +117,74 @@ class KickboxingApp(tk.Tk):
         self.result_dinlenme = tk.Label(self, text="", font=("Helvetica", 16, "bold"), fg="#ffd369", bg="#222831")
         self.result_dinlenme.pack(pady=5)
 
-        # Grafikların gösterileceği frame
         self.graph_frame = tk.Frame(self, bg="#222831")
         self.graph_frame.pack(pady=10, fill='both', expand=True)
 
-        # Grafik canvas referanslarını tutar
         self.canvas_antrenman = None
         self.canvas_dinlenme = None
-        self.canvas_inputs = {}  # Girdi grafik canvasları
         self.current_values = {}
 
     def calculate(self):
         try:
-            # Girdi değerlerini al ve doğrula
-            for label_text, min_val, max_val in [(k, v[1], v[2]) for k,v in self.entries.items()]:
-                entry_widget = self.entries[label_text][0]
-                val_str = entry_widget.get()
+            for label_text, min_val, max_val, _ in self.inputs:
+                val_str = self.entries[label_text][0].get()
                 val = float(val_str)
-                if val < min_val or val > max_val:
-                    raise ValueError(f"{label_text} için değer {min_val} ile {max_val} arasında olmalıdır.")
+                if not (min_val <= val <= max_val):
+                    raise ValueError(f"{label_text} {min_val}-{max_val} aralığında olmalı.")
                 self.current_values[label_text] = val
-        except ValueError as e:
-            messagebox.showerror("Hata", str(e))
-            return
 
-        # Girdi değerlerini bulanık kontrol sistemine ata
-        training.input['Kalp Atış Hızı (BPM)'] = self.current_values['Kalp Atış Hızı (BPM)']
-        training.input['Kas Yorgunluğu (0-10)'] = self.current_values['Kas Yorgunluğu (0-10)']
-        training.input['Önceki Set Zorluğu (0-10)'] = self.current_values['Önceki Set Zorluğu (0-10)']
-        training.input['Uyku Kalitesi (0-10)'] = self.current_values['Uyku Kalitesi (0-10)']
-        training.input['Su Tüketimi (L)'] = self.current_values['Su Tüketimi (L)']
+            training.input['Kalp Atış Hızı (BPM)'] = self.current_values["Kalp Atış Hızı (BPM)"]
+            training.input['Kas Yorgunluğu (0-10)'] = self.current_values["Kas Yorgunluğu (0-10)"]
+            training.input['Önceki Set Zorluğu (0-10)'] = self.current_values["Önceki Set Zorluğu (0-10)"]
+            training.input['Uyku Kalitesi (0-10)'] = self.current_values["Uyku Kalitesi (0-10)"]
+            training.input['Su Tüketimi (L)'] = self.current_values["Su Tüketimi (L)"]
 
-        training.compute()
+            training.compute()
 
-        # Sonuçları al
-        antrenman_degeri = training.output['Antrenman Zorluğu']
-        dinlenme_degeri = training.output['Dinlenme Süresi (dak)']
+            antrenman = training.output['Antrenman Zorluğu']
+            dinlenme = training.output['Dinlenme Süresi (dak)']
 
-        self.result_antrenman.config(text=f"Antrenman Zorluğu: {antrenman_degeri:.2f}")
-        self.result_dinlenme.config(text=f"Dinlenme Süresi: {dinlenme_degeri:.2f} dakika")
+            self.result_antrenman.config(text=f"🏋️ Antrenman Zorluğu: {antrenman:.2f}")
+            self.result_dinlenme.config(text=f"🧘 Dinlenme Süresi: {dinlenme:.2f} dakika")
 
-        self.plot_graphs(antrenman_degeri, dinlenme_degeri)
+            self.plot_results(antrenman_zorlugu, antrenman, True)
+            self.plot_results(dinlenme_suresi, dinlenme, False)
 
-    def plot_graphs(self, antrenman_degeri, dinlenme_degeri):
-        # Önceki grafik varsa temizle
-        for widget in self.graph_frame.winfo_children():
-            widget.destroy()
+        except ValueError as ve:
+            messagebox.showerror("Giriş Hatası", str(ve))
+        except Exception as e:
+            messagebox.showerror("Hata", f"Bir hata oluştu:\n{e}")
 
-        fig, axs = plt.subplots(3, 2, figsize=(10, 12))
-        fig.subplots_adjust(hspace=0.5)
-
-        # Giriş üyelik fonksiyonlarını çiz
-        for i, (label_text, min_val, max_val, fuzzy_var) in enumerate(self.inputs):
-            ax = axs[i//2, i%2]
-            universe = fuzzy_var.universe
-            for term_name, mf in fuzzy_var.terms.items():
-                ax.plot(universe, mf.mf, label=term_name)
-            # Dikey çizgi ile girilen değeri göster
-            val = self.current_values.get(label_text, None)
-            if val is not None:
-                ax.axvline(val, color='red', linestyle='--', label=f"Girdi: {val}")
-            ax.set_title(label_text)
-            ax.legend()
-            ax.grid(True)
-
-        # Çıkış üyelik fonksiyonlarını çiz
-        axs[2, 0].plot(antrenman_zorlugu.universe, antrenman_zorlugu['düşük'].mf, label='Düşük')
-        axs[2, 0].plot(antrenman_zorlugu.universe, antrenman_zorlugu['orta'].mf, label='Orta')
-        axs[2, 0].plot(antrenman_zorlugu.universe, antrenman_zorlugu['yüksek'].mf, label='Yüksek')
-        axs[2, 0].axvline(antrenman_degeri, color='red', linestyle='--', label=f"Sonuç: {antrenman_degeri:.2f}")
-        axs[2, 0].set_title("Antrenman Zorluğu")
-        axs[2, 0].legend()
-        axs[2, 0].grid(True)
-
-        axs[2, 1].plot(dinlenme_suresi.universe, dinlenme_suresi['kısa'].mf, label='Kısa')
-        axs[2, 1].plot(dinlenme_suresi.universe, dinlenme_suresi['orta'].mf, label='Orta')
-        axs[2, 1].plot(dinlenme_suresi.universe, dinlenme_suresi['uzun'].mf, label='Uzun')
-        axs[2, 1].axvline(dinlenme_degeri, color='red', linestyle='--', label=f"Sonuç: {dinlenme_degeri:.2f}")
-        axs[2, 1].set_title("Dinlenme Süresi (dak)")
-        axs[2, 1].legend()
-        axs[2, 1].grid(True)
+    def plot_results(self, variable, output_value, is_antrenman):
+        fig, ax = plt.subplots(figsize=(5, 1.8), dpi=100)
+        for term in variable.terms:
+            ax.plot(variable.universe, variable[term].mf, label=term)
+        ax.axvline(output_value, color='r', linestyle='--', label='Çıktı')
+        ax.set_title(variable.label)
+        ax.legend(loc='upper right')
+        ax.grid(True)
 
         canvas = FigureCanvasTkAgg(fig, master=self.graph_frame)
         canvas.draw()
-        canvas.get_tk_widget().pack(fill='both', expand=True)
+        if is_antrenman:
+            if self.canvas_antrenman:
+                self.canvas_antrenman.get_tk_widget().destroy()
+            self.canvas_antrenman = canvas
+        else:
+            if self.canvas_dinlenme:
+                self.canvas_dinlenme.get_tk_widget().destroy()
+            self.canvas_dinlenme = canvas
+        canvas.get_tk_widget().pack(pady=5)
+
+# ---------- UYGULAMA BAŞLAT ----------
 
 if __name__ == "__main__":
     app = KickboxingApp()
     app.mainloop()
+
+
+# In[ ]:
+
+
+
+
