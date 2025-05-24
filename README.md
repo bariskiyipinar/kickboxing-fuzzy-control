@@ -56,12 +56,14 @@ Bu proje, sporcu performansını optimize etmek için bulanık mantık tabanlı 
 
 Uygulamanın ekran görüntüleri:
 
-<p align="center">
-  <img src="image.png" width="500" alt="Grafik Sonuçları">
-</p>
+
 
 <p align="center">
   <img src="image1.png" width="500" alt="Ana Arayüz">
+</p>
+
+<p align="center">
+  <img src="İmage.png" width="500" alt="Grafik Sonuçları">
 </p>
 
 <p align="center">
