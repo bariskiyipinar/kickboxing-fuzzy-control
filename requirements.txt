@@ -1,6 +1,5 @@
-numpy
-scikit-fuzzy
-matplotlib
-pillow
-requests
-
+numpy==1.24.3
+scikit-fuzzy==0.4.2
+matplotlib==3.7.1
+pillow==10.0.0
+requests==2.31.0
