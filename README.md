@@ -67,10 +67,14 @@ Uygulamanın ekran görüntüleri:
 ## 🔧 Kurulum & Çalıştırma
 
 ```bash
-git clone https://github.com/kullanici_adi/kickboxing-fuzzy-control.git
-cd kickboxing-fuzzy-control
+git clone https://github.com/bariskiyipinar/kickboxing-fuzzy-control.git
+cd kickBoxing-fuzzy-control
 pip install numpy scikit-fuzzy matplotlib pillow requests
+pip install -r requirements.txt
 python Main.py
+
+
+
 
 
 
